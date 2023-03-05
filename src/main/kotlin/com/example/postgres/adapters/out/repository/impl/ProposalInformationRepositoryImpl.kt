@@ -12,6 +12,7 @@ class ProposalInformationRepositoryImpl(
         private val proposalInformationJpaRepository: ProposalInformationJpaRepository
 ) : ProposalInformationRepository {
     override fun save(proposalInformation: ProposalInformation): Optional<ProposalInformation> {
+        
         return proposalInformationJpaRepository
                 .save(ProposalInformationEntityRepositoryMapper
                         .toEntity(proposalInformation)).let {
@@ -21,7 +22,7 @@ class ProposalInformationRepositoryImpl(
 
 
     override fun findByProposta(propostal: String): Optional<ProposalInformation> {
-        return proposalInformationJpaRepository.findByProposta(propostal).map {
+        return proposalInformationJpaRepository.findByPropostaIfExists(propostal).map {
             ProposalInformationEntityRepositoryMapper.toModel(it)
         }
     }

@@ -19,27 +19,25 @@ class SaveProposalInformationImpl(
         val optional = proposalInformationRepository.findByProposta(proposalInformation.proposta)
 
         return if (optional.isEmpty) {
-            val proposalInformationOptional = proposalInformationRepository.save(proposalInformation)
-            proposalInformationLogRepository.save(ProposalInfomationLogMapper.toLog(proposalInformationOptional.get()))
-            proposalInformationOptional
+            insertProposal(proposalInformation)
         } else if (!isLastUpdateDateEqual(optional.get().dataUltimaAtualizacao, proposalInformation.dataUltimaAtualizacao)) {
-
-            val updateProposal = ProposalInformation(
-                    proposta = proposalInformation.proposta,
-                    dataPrimeiraAtualizacao = optional.get().dataPrimeiraAtualizacao,
-                    codProduto = proposalInformation.codProduto,
-                    codCanal = proposalInformation.codCanal,
-                    codPdv = proposalInformation.codPdv,
-                    dataUltimaAtualizacao = proposalInformation.dataUltimaAtualizacao)
-
-            proposalInformationLogRepository.save(ProposalInfomationLogMapper.toLog(proposalInformation))
-            return proposalInformationRepository.save(updateProposal)
-
+            updateProposal(proposalInformation, optional)
         } else {
             Optional.empty()
         }
 
 
+    }
+
+    private fun updateProposal(proposalInformation: ProposalInformation, optional: Optional<ProposalInformation>): Optional<ProposalInformation> {
+        val updateProposal = ProposalInfomationLogMapper.toUpdate(optional.get().dataPrimeiraAtualizacao, proposalInformation)
+        proposalInformationLogRepository.save(ProposalInfomationLogMapper.toLog(proposalInformation))
+        return proposalInformationRepository.save(updateProposal)
+    }
+
+    private fun insertProposal(proposalInformation: ProposalInformation): Optional<ProposalInformation> {
+        proposalInformationLogRepository.save(ProposalInfomationLogMapper.toLog(proposalInformation))
+        return proposalInformationRepository.save(proposalInformation)
     }
 
     private fun isLastUpdateDateEqual(dataUltimaAtualizacaoBase: LocalDateTime, dataUltimaAtualizacao: LocalDateTime): Boolean {
