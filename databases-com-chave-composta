@@ -1,0 +1,19 @@
+CREATE TABLE public.proposal_information (
+	data_primeira_atualizacao timestamp NOT NULL,
+	proposta varchar(255) NOT NULL,
+	cod_canal int4 NULL,
+	cod_pdv int4 NULL,
+	cod_produto int4 NULL,
+	data_ultima_atualizacao timestamp NULL,
+	CONSTRAINT proposal_information_pkey PRIMARY KEY (data_primeira_atualizacao, proposta)
+);
+
+
+CREATE TABLE public.proposal_information_log (
+	data_ultima_atualizacao timestamp NOT NULL,
+	proposta varchar(255) NOT NULL,
+	cod_canal int4 NULL,
+	cod_pdv int4 NULL,
+	cod_produto int4 NULL,
+	CONSTRAINT proposal_information_log_pkey PRIMARY KEY (data_ultima_atualizacao, proposta)
+);
