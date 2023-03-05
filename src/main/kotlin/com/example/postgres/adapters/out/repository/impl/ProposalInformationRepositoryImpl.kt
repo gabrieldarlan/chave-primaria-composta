@@ -9,15 +9,16 @@ import java.util.*
 
 @Service
 class ProposalInformationRepositoryImpl(
-        private val proposalInformationJpaRepository: ProposalInformationJpaRepository
+    private val proposalInformationJpaRepository: ProposalInformationJpaRepository
 ) : ProposalInformationRepository {
     override fun save(proposalInformation: ProposalInformation): Optional<ProposalInformation> {
-        
         return proposalInformationJpaRepository
-                .save(ProposalInformationEntityRepositoryMapper
-                        .toEntity(proposalInformation)).let {
-                    Optional.of(ProposalInformationEntityRepositoryMapper.toModel(it))
-                }
+            .save(
+                ProposalInformationEntityRepositoryMapper
+                    .toEntity(proposalInformation)
+            ).let {
+                Optional.of(ProposalInformationEntityRepositoryMapper.toModel(it))
+            }
     }
 
 

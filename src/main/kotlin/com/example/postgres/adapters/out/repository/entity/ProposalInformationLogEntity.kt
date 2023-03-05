@@ -14,7 +14,7 @@ data class ProposalInfomationLogId(
 
 @Entity
 @Table(name = "proposal_information_log")
-data class ProposalInfomationLogEntity(
+data class ProposalInformationLogEntity(
 
         @EmbeddedId
         var proposalInfomationLogId: ProposalInfomationLogId,
