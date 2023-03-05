@@ -1,0 +1,29 @@
+CREATE TABLE proposal_information (
+	proposta varchar(9)  not NULL ,
+	data_primeira_atualizacao timestamp not NULL,
+	cod_produto integer NOT NULL,
+	cod_canal integer NOT NULL,
+	cod_pdv integer NOT NULL,
+	data_ultima_atualizacao timestamp  NOT null,
+	PRIMARY KEY (proposta)
+);
+
+
+CREATE TABLE proposal_information_log (
+	proposta varchar(9)  not NULL ,
+	data_ultima_atualizacao timestamp  not NULL,
+	cod_produto integer NOT NULL,
+	cod_canal integer NOT NULL,
+	cod_pdv integer NOT NULL,
+	PRIMARY KEY (proposta)
+);
+
+
+
+CREATE TABLE Alunos (
+  ID_Aluno integer,
+  Nome_Aluno text NOT NULL,
+  CPF text,
+  Idade numeric,
+  PRIMARY KEY (ID_Aluno, CPF)
+);
